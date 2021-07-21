@@ -23,6 +23,7 @@ pipeline {
 				'''
 			}	
 		}
+	stages {
 	environment {
 		DEPLOY_TO = "${TARGET_ENV}"
 	}	
@@ -45,7 +46,7 @@ pipeline {
 				sh 'sleep 5'
 			}		
 		}
-
+	}
 	}	
 	
 			post {
