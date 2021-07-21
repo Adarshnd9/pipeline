@@ -3,11 +3,30 @@ pipeline {
 	parameters {
 		choice(name: 'TARGET_ENV', choices: ['test', 'prod'], description: 'Target environment to deploy')
 	}	
+	stages {
+	stage('BUILD') {
+			steps {
+				sh '''
+					pwd
+					sleep 5
+					echo This is the fist stage: BUILD
+				'''
+			}	
+		}
+		
+		stage('TEST') {
+			steps {
+				sh '''
+					pwd
+					sleep 5
+					echo This is the fist stage: TEST
+				'''
+			}	
+		}
 	environment {
 		DEPLOY_TO = "${TARGET_ENV}"
 	}	
-	stages {
-		stage('DEPLOY_TEST') {
+			stage('DEPLOY_TEST') {
 			when {
 				environment name: 'DEPLOY_TO', value: 'test'
 			}	
