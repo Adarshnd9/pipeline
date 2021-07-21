@@ -27,6 +27,7 @@ pipeline {
 				sh 'sleep 5'
 			}		
 		}
+		stages {
 		stage('DEPLOY_PROD') {
 			when {
 				environment name: 'DEPLOY_TO', value: 'prod'
@@ -37,5 +38,6 @@ pipeline {
 			}		
 		}
 	}	
+}
 }
 }
