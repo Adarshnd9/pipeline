@@ -16,9 +16,7 @@ pipeline {
 				sh 'sleep 5'
 			}		
 		}
-		environment {
-		DEPLOY_TO = "${TARGET_ENV}"
-	}	
+		
 	stages {
 		stage('DEPLOY_PRE-PROD') {
 			when {
@@ -39,4 +37,5 @@ pipeline {
 			}		
 		}
 	}	
+}
 }
