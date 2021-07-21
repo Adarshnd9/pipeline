@@ -1,31 +1,29 @@
 pipeline {
 	agent any
-	stages {
-		stage('STAGE1') {
-			steps {
-				catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-					echo "STAGE 1 IS RUNNING ......."
-					sh 'sleep 5'
-					sh 'exit 1'
-				}	
-			}	
-		}
-		
-		stage('STAGE2') {
-			steps {
-				echo "STAGE 2 IS RUNNING ......."
-				sh 'sleep 5'
-				
-			}	
-		}
-		
+	parameters {
+		choice(name: 'TARGET_ENV', choices: ['test', 'prod'], description: 'Target environment to deploy')
 	}	
-
-// This is a single line comment
-		
-/* This is multiple line comment 
-	line 2
-	line 3
-*/	
-		
+	environment {
+		DEPLOY_TO = "${TARGET_ENV}"
+	}	
+	stages {
+		stage('DEPLOY_TEST') {
+			when {
+				environment name: 'DEPLOY_TO', value: 'test'
+			}	
+			steps {
+				echo "DEPLOY TO TEST ENVIRONMENT ......."
+				sh 'sleep 5'
+			}		
+		}
+		stage('DEPLOY_PROD') {
+			when {
+				environment name: 'DEPLOY_TO', value: 'prod'
+			}	
+			steps {
+				echo "DEPLOY TO PRODUCTION ......."
+				sh 'sleep 5'
+			}		
+		}
+	}	
 }
